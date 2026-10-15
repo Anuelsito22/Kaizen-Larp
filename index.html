@@ -113,6 +113,9 @@
             touch-action: pan-x pan-y;
             overscroll-behavior-y: none;
         }
+        header {
+    padding-top: env(safe-area-inset-top, 0px);
+        }
         button, input, select, label, a, [role="button"], .habit-check-btn, .interactive-el {
             touch-action: manipulation;
         }
