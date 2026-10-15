@@ -1,0 +1,26 @@
+{
+  "name": "KAIZENsn | Seguimiento de Hábitos, Metas y Disciplina",
+  "short_name": "KAIZENsn",
+  "description": "Panel interactivo offline-first de hábitos, rachas, mapa de calor y gamificación.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#020617",
+  "theme_color": "#b91c1c",
+  "lang": "es-ES",
+  "icons": [
+    {
+      "src": "Gemini_Generated_Image_fx2sx0fx2sx0fx2s.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "Gemini_Generated_Image_fx2sx0fx2sx0fx2s.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
