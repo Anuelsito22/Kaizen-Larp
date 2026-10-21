@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kaizensn-pwa-cache-v4';
+const CACHE_NAME = 'kaizensn-pwa-cache-v5';
 
 const PRECACHE_ASSETS = [
   './',
