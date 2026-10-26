@@ -738,6 +738,43 @@
             .kzx-celebrate-box { transition: none; transform: none; }
         }
     </style>
+    <style>
+        /* ================================================================== */
+        /* KAIZENsn · SINCRONIZACIÓN PARA WIDGETS (prefijo kzs-)               */
+        /* ================================================================== */
+        .kzs, .kzs * { box-sizing: border-box; }
+        .kzs { --kzs-ink: #0f172a; --kzs-muted: #64748b; --kzs-line: #e2e8f0; --kzs-soft: #f1f5f9; --kzs-field: #f8fafc; --kzs-ok: #059669; --kzs-bad: #dc2626; }
+        .dark .kzs { --kzs-ink: #f8fafc; --kzs-muted: #94a3b8; --kzs-line: #334155; --kzs-soft: #1e293b; --kzs-field: rgb(30 41 59 / .6); --kzs-ok: #34d399; --kzs-bad: #f87171; }
+        .kzs-p { margin: 0 0 .75rem; font-size: .75rem; line-height: 1.5; color: var(--kzs-muted); }
+        .kzs-p b { color: var(--kzs-ink); }
+        .kzs-status { display: flex; align-items: center; gap: .5rem; padding: .5rem .75rem; border-radius: .75rem; background: var(--kzs-soft); border: 1px solid var(--kzs-line); font-size: .75rem; font-weight: 600; color: var(--kzs-ink); margin-bottom: .75rem; }
+        .kzs-dot { width: 9px; height: 9px; border-radius: 50%; background: #94a3b8; flex: none; }
+        .kzs-dot.is-ok { background: #10b981; } .kzs-dot.is-err { background: #ef4444; } .kzs-dot.is-sync { background: #f59e0b; }
+        .kzs-form { display: flex; flex-direction: column; gap: .25rem; }
+        .kzs-form[hidden], #kzs-connected[hidden] { display: none; }
+        #kzs-connected { display: flex; flex-direction: column; gap: .75rem; }
+        .kzs-lbl { margin-top: .5rem; font-size: .6875rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--kzs-muted); }
+        .kzs-in { width: 100%; padding: .65rem .8rem; border-radius: .75rem; border: 1px solid var(--kzs-line); background: var(--kzs-field); color: var(--kzs-ink); font: 500 16px/1.3 'Inter', system-ui, sans-serif; outline: none; }
+        .kzs-in:focus-visible { border-color: rgb(var(--brand-500, 185 28 28)); box-shadow: 0 0 0 3px rgb(var(--brand-500, 185 28 28) / .2); }
+        .kzs-btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .6rem 1rem; border-radius: .75rem; border: 1px solid transparent; cursor: pointer; font: 600 .75rem/1.2 'Inter', system-ui, sans-serif; transition: transform .15s ease, opacity .2s ease, background-color .2s ease; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .kzs-btn:active { transform: scale(.96); } .kzs-btn[disabled] { opacity: .55; cursor: default; transform: none; }
+        .kzs-primary { background: rgb(var(--brand-600, 153 27 27)); color: #fff; box-shadow: 0 4px 12px -2px rgb(var(--brand-600, 153 27 27) / .25); margin-top: .5rem; }
+        #kzs-connected .kzs-primary { margin-top: 0; }
+        .kzs-soft { background: var(--kzs-soft); color: var(--kzs-ink); border-color: var(--kzs-line); }
+        .kzs-row { display: grid; grid-template-columns: 1fr; gap: .5rem; }
+        @media (min-width: 480px) { .kzs-row { grid-template-columns: 1fr 1fr; } .kzs-row .kzs-primary { grid-column: 1 / -1; } }
+        .kzs-check { display: flex; align-items: center; gap: .6rem; font-size: .75rem; font-weight: 600; color: var(--kzs-ink); cursor: pointer; }
+        .kzs-check input { width: 18px; height: 18px; accent-color: rgb(var(--brand-600, 153 27 27)); }
+        .kzs-link { align-self: flex-start; background: none; border: 0; padding: .25rem 0; cursor: pointer; font: 600 .75rem/1.2 'Inter', system-ui, sans-serif; color: var(--kzs-muted); text-decoration: underline; text-underline-offset: 3px; }
+        .kzs-err { min-height: 1.1em; margin: .25rem 0 0; font-size: .75rem; font-weight: 600; color: var(--kzs-bad); }
+        .kzs-note { min-height: 1.1em; margin: .5rem 0 0; font-size: .75rem; font-weight: 600; }
+        .kzs-note.is-ok { color: var(--kzs-ok); } .kzs-note.is-bad { color: var(--kzs-bad); }
+        .kzs-help { margin-top: .5rem; font-size: .75rem; color: var(--kzs-muted); }
+        .kzs-help summary { cursor: pointer; font-weight: 700; color: var(--kzs-ink); padding: .25rem 0; }
+        .kzs-help ol { margin: .5rem 0 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: .4rem; line-height: 1.5; list-style: decimal; }
+        .kzs-help code { padding: .05rem .35rem; border-radius: .35rem; background: var(--kzs-soft); border: 1px solid var(--kzs-line); font-size: .6875rem; color: var(--kzs-ink); }
+        .kzs-help b, .kzs-help i { color: var(--kzs-ink); }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
 
@@ -5644,6 +5681,424 @@ var KZDPet = (function () {
   }
   if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', function () { setTimeout(start, 0); }); else setTimeout(start, 0);
   window.__KZX = { todos: function () { return todos; }, savings: function () { return S; }, parse: parseAmount, fmt: fmt };
+})();
+
+    </script>
+
+    <!-- ================================================================== -->
+    <!-- KAIZENsn · SINCRONIZACIÓN PARA WIDGETS (Scriptable)                -->
+    <!-- Datos propios en kaizensn_sync_v1. Solo lee el estado de la app.   -->
+    <!-- ================================================================== -->
+    <script>
+/* ===== KAIZENsn · Sincronización para widgets de iPhone (Scriptable) ===== */
+(function () {
+  'use strict';
+  if (window.__KZS) return;
+  var KEY = 'kaizensn_sync_v1';
+  var SNAP_PATH = 'kaizensn/snapshot.json';
+  var MOODS = ['proud', 'happy', 'idle', 'sleep'];
+  var WIDGET_SCRIPT = "// Variables de Scriptable: icon-color: red; icon-glyph: dragon;\n// ─────────────────────────────────────────────────────────────────────────────\n// KAIZENsn · Widget para Scriptable\n// Lee el resumen que tu app sube a TU repositorio privado de GitHub y dibuja:\n//   · Pantalla de inicio: pequeño, mediano y grande\n//   · Pantalla de bloqueo: circular, rectangular y en línea\n//\n// Parámetro del widget (Editar widget → Parameter), opcional:\n//   (vacío) o habitos   → hábitos de hoy\n//   pendientes          → lista de pendientes\n//   metas               → metas (corto, mediano y largo plazo)\n//   ahorros             → objetivos financieros (actívalos en Ajustes de la app)\n//\n// Primera vez: en la app, Ajustes → \"Copiar configuración\", y luego abre este\n// script dentro de Scriptable. Se configura solo.\n// ─────────────────────────────────────────────────────────────────────────────\n\nconst KEYCHAIN = 'kaizensn_sync_cfg';\nconst FM = FileManager.local();\nconst P = (name) => FM.joinPath(FM.documentsDirectory(), name);\nconst SNAP_FILE = 'kzs_snapshot.json';\n\n// ───────────── Configuración (Keychain) ─────────────\nfunction getCfg() {\n  try { if (Keychain.contains(KEYCHAIN)) { const c = JSON.parse(Keychain.get(KEYCHAIN)); if (c && c.o && c.r && c.t) return c; } } catch (e) {}\n  return null;\n}\nfunction saveCfg(c) { Keychain.set(KEYCHAIN, JSON.stringify({ o: c.o, r: c.r, t: c.t, b: c.b || '' })); }\n\nasync function notify(title, msg) { const a = new Alert(); a.title = title; a.message = msg || ''; a.addAction('OK'); await a.presentAlert(); }\n\nasync function setup() {\n  // 1) ¿Hay una configuración copiada desde la app?\n  try {\n    const clip = Pasteboard.paste();\n    if (clip && clip.indexOf('KZS1.') === 0) {\n      const j = JSON.parse(Data.fromBase64String(clip.slice(5)).toRawString());\n      if (j.o && j.r && j.t) { saveCfg(j); Pasteboard.copy(''); await notify('Listo ✅', 'La configuración se importó. Ya puedes añadir el widget.'); return true; }\n    }\n  } catch (e) {}\n  // 2) Manual\n  const old = getCfg() || {};\n  const a = new Alert();\n  a.title = 'Conectar KAIZENsn';\n  a.message = 'Escribe tu usuario de GitHub, el repositorio privado y el token.\\n\\nMás fácil: en la app toca “Copiar configuración” y vuelve a abrir este script.';\n  a.addTextField('Usuario de GitHub', old.o || '');\n  a.addTextField('Repositorio', old.r || 'kaizensn-sync');\n  a.addSecureTextField('Token', '');\n  a.addAction('Guardar');\n  a.addCancelAction('Cancelar');\n  if ((await a.presentAlert()) === -1) return false;\n  const o = a.textFieldValue(0).trim(), r = a.textFieldValue(1).trim(), t = a.textFieldValue(2).trim() || old.t || '';\n  if (!o || !r || !t) { await notify('Faltan datos', 'Completa usuario, repositorio y token.'); return false; }\n  saveCfg({ o: o, r: r, t: t, b: old.b || '' });\n  return true;\n}\n\n// ───────────── Red y caché ─────────────\nfunction ghRequest(cfg, path) {\n  const url = 'https://api.github.com/repos/' + encodeURIComponent(cfg.o) + '/' + encodeURIComponent(cfg.r) + '/contents/' + path + (cfg.b ? '?ref=' + encodeURIComponent(cfg.b) : '');\n  const r = new Request(url);\n  r.headers = { Authorization: 'Bearer ' + cfg.t, Accept: 'application/vnd.github.raw+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'KAIZENsn-Scriptable' };\n  r.timeoutInterval = 12;\n  return r;\n}\nasync function fetchSnapshot(cfg) {\n  const r = ghRequest(cfg, 'kaizensn/snapshot.json');\n  const text = await r.loadString();\n  const code = r.response ? r.response.statusCode : 0;\n  if (code !== 200) throw new Error('HTTP ' + code);\n  const snap = JSON.parse(text);\n  FM.writeString(P(SNAP_FILE), text);\n  return snap;\n}\nfunction readCachedSnapshot() { try { if (FM.fileExists(P(SNAP_FILE))) return JSON.parse(FM.readString(P(SNAP_FILE))); } catch (e) {} return null; }\n\nasync function dragonImage(cfg, snap, mood) {\n  const d = snap.dragon;\n  if (!d || !d.has || !d.key || !d.moods || !d.moods.length) return null;\n  const m = d.moods.indexOf(mood) >= 0 ? mood : d.moods[0];\n  const file = 'kzs_' + d.key + '_' + m + '.png';\n  try {\n    if (FM.fileExists(P(file))) return FM.readImage(P(file));\n    const r = ghRequest(cfg, 'kaizensn/dragon-' + m + '.png');\n    const data = await r.load();\n    if (r.response && r.response.statusCode === 200) {\n      // borrar versiones antiguas\n      FM.listContents(FM.documentsDirectory()).forEach((f) => { if (f.indexOf('kzs_') === 0 && f.endsWith('.png') && f.indexOf('kzs_' + d.key + '_') !== 0) { try { FM.remove(P(f)); } catch (e) {} } });\n      FM.write(P(file), data);\n      return Image.fromData(data);\n    }\n  } catch (e) {}\n  return null;\n}\n\n// ───────────── Tema ─────────────\nconst dyn = (l, d) => Color.dynamic(new Color(l), new Color(d));\nconst C = {\n  bg: dyn('#F8FAFC', '#0B1120'), ink: dyn('#0F172A', '#F8FAFC'), muted: dyn('#64748B', '#94A3B8'),\n  track: dyn('#E2E8F0', '#1E293B'), line: dyn('#E2E8F0', '#243049'), gold: new Color('#F5B301'), ok: new Color('#10B981')\n};\nfunction fontOf(size, w) {\n  switch (w) {\n    case 'heavy': return Font.heavySystemFont(size);\n    case 'bold': return Font.boldSystemFont(size);\n    case 'semi': return Font.semiboldSystemFont(size);\n    case 'medium': return Font.mediumSystemFont(size);\n    default: return Font.systemFont(size);\n  }\n}\nfunction txt(parent, s, size, weight, color, o) {\n  o = o || {};\n  const t = parent.addText(String(s));\n  t.font = fontOf(size, weight); t.textColor = color;\n  if (o.lines) t.lineLimit = o.lines;\n  if (o.min) t.minimumScaleFactor = o.min;\n  if (o.opacity != null) t.textOpacity = o.opacity;\n  return t;\n}\nfunction row(parent, spacing) { const s = parent.addStack(); s.layoutHorizontally(); s.centerAlignContent(); if (spacing != null) s.spacing = spacing; return s; }\nfunction col(parent, spacing) { const s = parent.addStack(); s.layoutVertically(); if (spacing != null) s.spacing = spacing; return s; }\nfunction bar(parent, w, h, pct, color) {\n  const o = parent.addStack(); o.size = new Size(w, h); o.cornerRadius = h / 2; o.backgroundColor = C.track; o.layoutHorizontally();\n  const p = Math.max(0, Math.min(100, pct));\n  if (p > 0) { const i = o.addStack(); i.size = new Size(Math.max(h, Math.round(w * p / 100)), h); i.cornerRadius = h / 2; i.backgroundColor = color; }\n  return o;\n}\nfunction check(parent, done, accent) {\n  const c = parent.addStack(); c.size = new Size(15, 15); c.cornerRadius = 7.5; c.centerAlignContent();\n  if (done) { c.backgroundColor = accent; const t = c.addText('✓'); t.font = Font.heavySystemFont(9); t.textColor = Color.white(); }\n  else { c.borderWidth = 1.6; c.borderColor = C.muted; }\n  return c;\n}\nfunction alpha(hex, a) { return new Color(hex, a); }\n\n// ───────────── Tamaños de widget por pantalla (puntos) ─────────────\nfunction sizes() {\n  const s = Device.screenSize(), w = Math.min(s.width, s.height);\n  const T = { 440: [170, 364, 382], 430: [170, 364, 382], 428: [170, 364, 382], 414: [169, 360, 379], 402: [162, 342, 360], 393: [158, 338, 354], 390: [158, 338, 354], 375: [155, 329, 345] };\n  let best = 402, diff = 1e9;\n  Object.keys(T).forEach((k) => { const d = Math.abs(Number(k) - w); if (d < diff) { diff = d; best = Number(k); } });\n  return { small: T[best][0], medium: T[best][1], largeH: T[best][2] };\n}\n\n// ───────────── Derivar lo que se muestra \"ahora\" ─────────────\nfunction moodOf(done, total, last, now) {\n  if (total > 0 && done === total) return 'proud';\n  if (done > 0) return 'happy';\n  const h = now.getHours();\n  if (h >= 23 || h < 6) return 'night';\n  let since = 99;\n  if (last) { const a = new Date(now.getFullYear(), now.getMonth(), now.getDate()), b = new Date(last + 'T00:00:00'); since = Math.round((a - b) / 864e5); }\n  return since >= 2 ? 'sleep' : 'idle';\n}\nfunction derive(snap, fresh) {\n  const now = new Date();\n  const T = (now.getDay() + 6) % 7;\n  const habits = (snap.habits || []).map((h) => ({ name: h.name, emoji: h.emoji || '•', done: !!(h.week && h.week[T]), week: h.week || [] }));\n  const total = habits.length, done = habits.filter((h) => h.done).length;\n  const mood = moodOf(done, total, snap.lastActive, now);\n  const weekPct = [];\n  for (let i = 0; i < 7; i++) weekPct.push(total ? Math.round(habits.filter((h) => h.week[i]).length / total * 100) : 0);\n  const gen = new Date(snap.generatedAt);\n  const ageMin = isNaN(gen) ? 0 : Math.max(0, (now - gen) / 60000);\n  const dr = snap.dragon && snap.dragon.has ? snap.dragon : null;\n    let msg;\n  if (dr && dr.stage === 0) msg = 'Se calienta con cada hábito';\n  else msg = { proud: 'Orgulloso: ¡todo listo hoy!', happy: 'Contento con tu avance', idle: 'Te espera para empezar', night: 'Duerme. Mañana seguimos', sleep: 'Se quedó dormido, despiértalo' }[mood];\n  return {\n    snap: snap, fresh: fresh, now: now, T: T, habits: habits, total: total, done: done, pct: total ? Math.round(done / total * 100) : 0,\n    pending: habits.filter((h) => !h.done), mood: mood, weekPct: weekPct, ageMin: ageMin, dr: dr, msg: msg,\n    accent: new Color(snap.accent || '#B91C1C'), accentHex: snap.accent || '#B91C1C',\n    streak: (snap.stats && snap.stats.streak) || 0,\n    todos: (snap.todos && snap.todos.items) || [], todoCount: (snap.todos && snap.todos.count) || 0,\n    lvl: snap.level || { n: 1, title: '', pct: 0 }\n  };\n}\nfunction ageText(m) { if (m < 60) return Math.round(m) + ' min'; const h = m / 60; if (h < 24) return Math.round(h) + ' h'; return Math.round(h / 24) + ' d'; }\n\n// ───────────── Piezas comunes ─────────────\nfunction dragonView(parent, v, size) {\n  if (v.img) { const im = parent.addImage(v.img); im.imageSize = new Size(size, size); return im; }\n  const emoji = v.dr && v.dr.stage === 0 ? '🥚' : '🐉';\n  const t = parent.addText(emoji); t.font = Font.systemFont(size * 0.7); return t;\n}\nfunction footerAge(parent, v, size) {\n  if (!v.fresh) txt(parent, 'sin conexión · ' + ageText(v.ageMin), size, 'medium', C.muted);\n  else if (v.ageMin > 90) txt(parent, 'actualizado hace ' + ageText(v.ageMin), size, 'medium', C.muted);\n}\nfunction ringImage(pct, label, size) {\n  const dc = new DrawContext(); dc.size = new Size(size, size); dc.opaque = false; dc.respectScreenScale = true;\n  const lw = size * 0.11, r = size / 2 - lw / 2 - 1, cx = size / 2, cy = size / 2;\n  function arc(a0, a1) {\n    const p = new Path(), steps = Math.max(2, Math.ceil(Math.abs(a1 - a0) / 5));\n    for (let i = 0; i <= steps; i++) { const a = (a0 + (a1 - a0) * i / steps) * Math.PI / 180, pt = new Point(cx + r * Math.cos(a), cy + r * Math.sin(a)); if (i === 0) p.move(pt); else p.addLine(pt); }\n    dc.addPath(p); dc.strokePath();\n  }\n  dc.setLineWidth(lw);\n  dc.setStrokeColor(new Color('#FFFFFF', 0.3)); arc(-90, 270);\n  if (pct > 0) { dc.setStrokeColor(Color.white()); arc(-90, -90 + 360 * Math.min(1, pct)); }\n  dc.setFont(Font.boldSystemFont(size * 0.3)); dc.setTextColor(Color.white()); dc.setTextAlignedCenter();\n  dc.drawTextInRect(label, new Rect(0, cy - size * 0.19, size, size * 0.4));\n  return dc.getImage();\n}\n\n// ───────────── Listas (reutilizables) ─────────────\nfunction habitRows(parent, v, max, w, inline) {\n  const list = v.pending.concat(v.habits.filter((h) => h.done)).slice(0, max);\n  list.forEach((h) => {\n    const r = row(parent, 6); r.size = new Size(w, 18);\n    check(r, h.done, v.accent);\n    txt(r, h.emoji, 11, 'regular', C.ink);\n    txt(r, h.name, 12, h.done ? 'regular' : 'semi', C.ink, { lines: 1, min: 0.75, opacity: h.done ? 0.45 : 1 });\n    r.addSpacer();\n  });\n  const extra = v.habits.length - list.length;\n  if (extra > 0 && !inline) txt(parent, '+' + extra + ' más', 10, 'medium', C.muted);\n  if (!v.habits.length) txt(parent, 'Aún no tienes hábitos', 12, 'regular', C.muted);\n  return extra;\n}\nfunction todoRows(parent, v, max, w, inline) {\n  v.todos.slice(0, max).forEach((t) => {\n    const r = row(parent, 7); r.size = new Size(w, 18);\n    const d = r.addStack(); d.size = new Size(15, 15); d.cornerRadius = 7.5; d.borderWidth = 1.6; d.borderColor = C.muted;\n    txt(r, t, 12, 'medium', C.ink, { lines: 1, min: 0.75 });\n    r.addSpacer();\n  });\n  const extra = v.todoCount - Math.min(max, v.todos.length);\n  if (extra > 0 && !inline) txt(parent, '+' + extra + ' más', 10, 'medium', C.muted);\n  if (!v.todoCount) txt(parent, 'Todo al día ✨', 12, 'medium', C.muted);\n  return Math.max(0, extra);\n}\nfunction savingsRows(parent, v, max, w) {\n  const s = v.snap.savings;\n  if (!s || !s.goals || !s.goals.length) { txt(parent, 'Activa “Mostrar mis ahorros” en Ajustes', 11, 'regular', C.muted, { lines: 2 }); return; }\n  s.goals.slice(0, max).forEach((g) => {\n    const c = col(parent, 3);\n    const r = row(c, 4); r.size = new Size(w, 14);\n    txt(r, g.done ? '🏆 ' + g.name : g.name, 12, 'semi', C.ink, { lines: 1, min: 0.75 });\n    r.addSpacer();\n    txt(r, g.pct + '%', 12, 'heavy', g.done ? C.ok : C.gold);\n    bar(c, w, 6, g.pct, g.done ? C.ok : C.gold);\n    parent.addSpacer(5);\n  });\n}\nfunction metasRows(parent, v, max, w) {\n  const m = v.snap.metas || [];\n  if (!m.length) { txt(parent, 'Sin metas activas', 12, 'regular', C.muted); return; }\n  m.slice(0, max).forEach((g) => {\n    const c = col(parent, 3);\n    const r = row(c, 4); r.size = new Size(w, 14);\n    txt(r, g.title, 12, 'semi', C.ink, { lines: 1, min: 0.75 }); r.addSpacer(); txt(r, g.pct + '%', 12, 'heavy', v.accent);\n    bar(c, w, 6, g.pct, v.accent);\n    parent.addSpacer(5);\n  });\n}\nfunction listFor(mode, parent, v, max, w, inline) {\n  if (mode === 'pendientes') return todoRows(parent, v, max, w, inline);\n  if (mode === 'ahorros') { savingsRows(parent, v, Math.max(1, max - 1), w); return 0; }\n  if (mode === 'metas') { metasRows(parent, v, Math.max(1, max - 1), w); return 0; }\n  return habitRows(parent, v, max, w, inline);\n}\nfunction titleFor(mode, v) {\n  if (mode === 'pendientes') return ['PENDIENTES', String(v.todoCount)];\n  if (mode === 'ahorros') return ['AHORROS', ''];\n  if (mode === 'metas') return ['METAS', ''];\n  return ['HOY', v.done + '/' + v.total];\n}\n\n// ───────────── Pequeño ─────────────\nfunction buildSmall(w, v, S, mode) {\n  w.setPadding(12, 12, 12, 12);\n  const inner = S.small - 24;\n  const top = row(w, 8);\n  dragonView(top, v, 60);\n  const c = col(top, 1); c.size = new Size(inner - 60 - 8, 0);\n  txt(c, v.dr ? v.dr.name : 'KAIZENsn', 14, 'bold', C.ink, { lines: 1, min: 0.7 });\n  txt(c, 'Nv. ' + v.lvl.n, 11, 'semi', C.muted, { lines: 1 });\n  w.addSpacer();\n  if (mode === 'pendientes') {\n    const r = row(w, 4); r.bottomAlignContent();\n    txt(r, String(v.todoCount), 30, 'heavy', C.ink); txt(r, v.todoCount === 1 ? 'pendiente' : 'pendientes', 12, 'semi', C.muted);\n    w.addSpacer(4);\n    bar(w, inner, 6, v.todoCount ? 100 : 0, v.accent);\n  } else {\n    const r = row(w, 3); r.bottomAlignContent();\n    txt(r, String(v.done), 30, 'heavy', C.ink); txt(r, '/' + v.total + ' hoy', 13, 'semi', C.muted);\n    w.addSpacer(4);\n    bar(w, inner, 6, v.pct, v.accent);\n  }\n  w.addSpacer(7);\n  const f = row(w);\n  txt(f, '🔥 ' + v.streak, 11, 'bold', C.ink); f.addSpacer(); txt(f, '📝 ' + v.todoCount, 11, 'bold', C.ink);\n}\n\n// ───────────── Mediano ─────────────\nfunction buildMedium(w, v, S, mode) {\n  w.setPadding(12, 12, 12, 12);\n  const main = row(w, 10); main.topAlignContent();\n  const leftW = 96, rightW = S.medium - 24 - leftW - 10;\n  const left = col(main, 2); left.size = new Size(leftW, S.small - 24); left.centerAlignContent();\n  const ir = row(left); ir.addSpacer(); dragonView(ir, v, 80); ir.addSpacer();\n  const nr = row(left); nr.addSpacer(); txt(nr, v.dr ? v.dr.name : 'KAIZENsn', 13, 'bold', C.ink, { lines: 1, min: 0.7 }); nr.addSpacer();\n  const lr = row(left); lr.addSpacer(); txt(lr, 'Nv. ' + v.lvl.n + ' · ' + v.lvl.title, 9.5, 'semi', C.muted, { lines: 1, min: 0.6 }); lr.addSpacer();\n\n  const right = col(main, 3); right.size = new Size(rightW, S.small - 24);\n  const tt = titleFor(mode, v);\n  const hr = row(right, 4); hr.size = new Size(rightW, 16);\n  txt(hr, tt[0], 10, 'heavy', C.muted);\n  hr.addSpacer();\n  if (tt[1]) txt(hr, tt[1], 13, 'heavy', mode === 'pendientes' || v.pct < 100 ? v.accent : C.ok);\n  if (mode === 'habitos' || !mode) bar(right, rightW, 5, v.pct, v.pct >= 100 ? C.ok : v.accent);\n  right.addSpacer(3);\n  const extra = listFor(mode, right, v, 4, rightW, true);\n  right.addSpacer();\n  const f = row(right, 8); f.size = new Size(rightW, 13);\n  txt(f, '🔥 ' + v.streak, 10.5, 'bold', C.ink);\n  txt(f, '📝 ' + v.todoCount, 10.5, 'bold', C.ink);\n  f.addSpacer();\n  if (extra > 0) txt(f, '+' + extra + ' más', 9.5, 'medium', C.muted);\n  else footerAge(f, v, 9);\n}\n\n// ───────────── Grande ─────────────\nfunction buildLarge(w, v, S, mode) {\n  w.setPadding(14, 14, 14, 14);\n  const W = S.medium - 28;\n  const head = row(w, 10); head.size = new Size(W, 62);\n  dragonView(head, v, 60);\n  const c = col(head, 3); c.size = new Size(W - 70 - 58, 60);\n  txt(c, v.dr ? v.dr.name : 'KAIZENsn', 16, 'bold', C.ink, { lines: 1, min: 0.7 });\n  txt(c, v.msg, 10.5, 'medium', C.muted, { lines: 1, min: 0.7 });\n  const xr = row(c, 6);\n  bar(xr, 92, 6, v.lvl.pct, C.gold);\n  txt(xr, 'Nv. ' + v.lvl.n, 10, 'heavy', C.gold);\n  head.addSpacer();\n  const pill = col(head, 0); pill.centerAlignContent();\n  txt(pill, '🔥', 18, 'regular', C.ink); txt(pill, String(v.streak), 13, 'heavy', C.ink);\n  w.addSpacer(8);\n\n  const tt = titleFor(mode, v);\n  const hr = row(w); hr.size = new Size(W, 16);\n  txt(hr, tt[0], 10, 'heavy', C.muted); hr.addSpacer(); if (tt[1]) txt(hr, tt[1], 13, 'heavy', v.pct < 100 || mode === 'pendientes' ? v.accent : C.ok);\n  w.addSpacer(2);\n  const hasSav = mode !== 'ahorros' && v.snap.savings && v.snap.savings.goals && v.snap.savings.goals.length;\n  listFor(mode, w, v, 5, W);\n\n  if (mode === 'habitos' || !mode) {\n    w.addSpacer(6);\n    const h2 = row(w); h2.size = new Size(W, 16);\n    txt(h2, 'PENDIENTES', 10, 'heavy', C.muted); h2.addSpacer(); txt(h2, String(v.todoCount), 13, 'heavy', v.accent);\n    w.addSpacer(2);\n    todoRows(w, v, 3, W);\n  }\n  w.addSpacer();\n  if (hasSav) {\n    const sv = v.snap.savings.goals[0];\n    const r = row(w, 6); r.size = new Size(W, 14);\n    txt(r, 'AHORRO', 10, 'heavy', C.muted); txt(r, sv.name, 11, 'semi', C.ink, { lines: 1, min: 0.7 }); r.addSpacer(); txt(r, sv.pct + '%', 11, 'heavy', C.gold);\n    w.addSpacer(3);\n    bar(w, W, 6, sv.pct, C.gold);\n  } else {\n    // semana\n    const wr = row(w, 0); wr.size = new Size(W, 34); wr.bottomAlignContent();\n    const L = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];\n    for (let i = 0; i < 7; i++) {\n      const cc = col(wr, 2); cc.size = new Size(W / 7, 34); cc.centerAlignContent();\n      cc.addSpacer();\n      const h = Math.max(4, Math.round(v.weekPct[i] / 100 * 20));\n      const b = cc.addStack(); b.size = new Size(14, h); b.cornerRadius = 3;\n      b.backgroundColor = i === v.T ? v.accent : (i < v.T ? alpha(v.accentHex, 0.5) : C.track);\n      txt(cc, L[i], 8.5, i === v.T ? 'heavy' : 'medium', i === v.T ? C.ink : C.muted);\n    }\n  }\n  const age = row(w); age.size = new Size(W, 12); age.addSpacer(); footerAge(age, v, 8.5); age.addSpacer();\n}\n\n// ───────────── Pantalla de bloqueo ─────────────\nfunction buildAccessory(w, v, family) {\n  if (family === 'accessoryCircular') {\n    w.addAccessoryWidgetBackground = true;\n    const im = w.addImage(ringImage(v.total ? v.done / v.total : 0, v.done + '/' + v.total, 64));\n    im.imageSize = new Size(52, 52); im.centerAlignImage();\n  } else if (family === 'accessoryRectangular') {\n    txt(w, 'KAIZENsn · 🔥' + v.streak, 12, 'bold', Color.white(), { lines: 1 });\n    txt(w, 'Hoy ' + v.done + '/' + v.total + ' hábitos', 12, 'semi', Color.white(), { lines: 1 });\n    txt(w, v.pending.length ? 'Falta: ' + v.pending[0].name : (v.todoCount ? v.todoCount + ' pendientes' : '¡Todo listo!'), 11, 'regular', Color.white(), { lines: 1, min: 0.7, opacity: 0.85 });\n  } else {\n    txt(w, (v.dr && v.dr.stage === 0 ? '🥚 ' : '🐉 ') + v.done + '/' + v.total + ' hábitos · ' + v.todoCount + ' pend.', 12, 'semi', Color.white(), { lines: 1 });\n  }\n}\n\n// ───────────── Mensaje cuando no hay datos ─────────────\nfunction buildMessage(w, title, body) {\n  w.setPadding(14, 14, 14, 14); w.backgroundColor = C.bg;\n  txt(w, '🐉 KAIZENsn', 14, 'bold', C.ink);\n  w.addSpacer(4);\n  txt(w, title, 12, 'semi', C.ink, { lines: 2 });\n  w.addSpacer(2);\n  txt(w, body, 10.5, 'regular', C.muted, { lines: 4, min: 0.8 });\n}\n\n// ───────────── Construcción general ─────────────\nasync function buildWidget(family, mode, cfg, forceMsg) {\n  const w = new ListWidget();\n  w.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);\n  const accessory = family.indexOf('accessory') === 0;\n  if (!cfg) { if (accessory) txt(w, 'KAIZENsn: configura el script', 11, 'semi', Color.white()); else buildMessage(w, 'Falta configurar', 'Abre el script en Scriptable para conectarlo.'); return w; }\n  let snap = null, fresh = false, err = '';\n  try { snap = await fetchSnapshot(cfg); fresh = true; } catch (e) { err = String(e && e.message || e); snap = readCachedSnapshot(); }\n  if (!snap) {\n    if (accessory) txt(w, 'KAIZENsn: sin datos', 11, 'semi', Color.white());\n    else buildMessage(w, 'Sin datos todavía', /404/.test(err) ? 'Abre KAIZENsn y toca “Sincronizar ahora” en Ajustes.' : 'No pude conectar (' + err + '). Revisa tu conexión y el token.');\n    return w;\n  }\n  const v = derive(snap, fresh);\n  if (snap.appUrl) w.url = snap.appUrl;\n  if (accessory) { buildAccessory(w, v, family); return w; }\n  v.img = await dragonImage(cfg, snap, v.mood === 'night' ? 'sleep' : v.mood);\n  w.backgroundColor = C.bg;\n  const S = sizes();\n  if (family === 'small') buildSmall(w, v, S, mode);\n  else if (family === 'large' || family === 'extraLarge') buildLarge(w, v, S, mode);\n  else buildMedium(w, v, S, mode);\n  return w;\n}\n\nfunction parseMode(p) {\n  const s = String(p || '').trim().toLowerCase();\n  if (s.indexOf('pend') === 0) return 'pendientes';\n  if (s.indexOf('aho') === 0) return 'ahorros';\n  if (s.indexOf('meta') === 0) return 'metas';\n  return 'habitos';\n}\n\n// ───────────── Punto de entrada ─────────────\nif (config.runsInWidget) {\n  const w = await buildWidget(config.widgetFamily || 'medium', parseMode(args.widgetParameter), getCfg());\n  Script.setWidget(w);\n} else {\n  let cfg = getCfg();\n  if (!cfg) { if (await setup()) cfg = getCfg(); }\n  if (cfg) {\n    const a = new Alert();\n    a.title = 'KAIZENsn';\n    a.message = 'Conectado a ' + cfg.o + '/' + cfg.r + '.\\nElige una vista previa:';\n    ['Pequeño', 'Mediano', 'Grande', 'Pendientes (mediano)', 'Probar conexión', 'Reconfigurar'].forEach((t) => a.addAction(t));\n    a.addCancelAction('Cerrar');\n    const i = await a.presentAlert();\n    if (i === 0) await (await buildWidget('small', 'habitos', cfg)).presentSmall();\n    else if (i === 1) await (await buildWidget('medium', 'habitos', cfg)).presentMedium();\n    else if (i === 2) await (await buildWidget('large', 'habitos', cfg)).presentLarge();\n    else if (i === 3) await (await buildWidget('medium', 'pendientes', cfg)).presentMedium();\n    else if (i === 4) {\n      try { const s = await fetchSnapshot(cfg); await notify('Conexión correcta ✅', 'Último resumen: ' + new Date(s.generatedAt).toLocaleString() + '\\nHábitos: ' + (s.habits || []).length + ' · Pendientes: ' + ((s.todos && s.todos.count) || 0)); }\n      catch (e) { await notify('No pude leer el resumen', String(e && e.message || e) + '\\n\\nSi dice HTTP 404: abre la app y toca “Sincronizar ahora”.'); }\n    } else if (i === 5) { if (await setup()) await notify('Guardado', 'Vuelve a ejecutar el script.'); }\n  }\n  Script.complete();\n}\n";
+
+  function $(id) { return document.getElementById(id); }
+  function load() { try { var v = JSON.parse(localStorage.getItem(KEY) || 'null'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } }
+  var cfg = load();
+  function store() { try { localStorage.setItem(KEY, JSON.stringify(cfg)); } catch (e) {} }
+  function ready() { return !!(cfg.owner && cfg.repo && cfg.token); }
+  function iso(d) { try { return formatDateISO(d); } catch (e) { return d.toISOString().slice(0, 10); } }
+
+  // ================================================================ lectura del estado de la app (solo lectura)
+  function todayIdx() { var d = new Date().getDay(); return d === 0 ? 6 : d - 1; }
+  function overallStreak(T) {
+    // Misma regla que calculateOverallStreak(), pero con el día REAL (no el día que estés mirando en el panel).
+    try {
+      if (!habits.length) return 0;
+      var run = 0;
+      for (var d = T; d >= 0; d--) {
+        var c = habits.filter(function (h) { return h.days && h.days[d]; }).length;
+        var shielded = appMeta.shieldedDays && appMeta.shieldedDays[d];
+        if (c / habits.length >= 0.6 || shielded) run++; else break;
+      }
+      return (run === T + 1 && run > 0) ? run + 5 : run;
+    } catch (e) { return 0; }
+  }
+  function lastActive() {
+    var last = null;
+    try { for (var k in heatmapData) if (heatmapData[k] > 0 && (!last || k > last)) last = k; } catch (e) {}
+    return last;
+  }
+  function moodNow(done, n, last) {
+    if (n > 0 && done === n) return 'proud';
+    if (done > 0) return 'happy';
+    var h = new Date().getHours();
+    if (h >= 23 || h < 6) return 'night';
+    var since = 99;
+    if (last) { try { since = Math.round((new Date(iso(new Date())) - new Date(last)) / 864e5); } catch (e) {} }
+    return since >= 2 ? 'sleep' : 'idle';
+  }
+  var ACCENTS = { crimson: '#b91c1c', onyx: '#71717a', forest: '#10b981', cyberpunk: '#d946ef', sunset: '#f97316', indigo: '#6366f1' };
+
+  function dragonInfo(done, n) {
+    var out = { has: false };
+    try {
+      var a = window.__KZD_APP, st = a && a.state && a.state();
+      if (!st || !st.D || !st.T) return out;
+      var D = st.D, T = st.T;
+      var rank = getCurrentRankObj();
+      var heat = rank.level - 1 >= 1 ? 1 : Math.min(0.99, (Number(appMeta.xp) || 0) / 150);
+      out = {
+        has: true, name: D.name || T.name || 'Dragón', stage: D.stage, stageName: (window.KZD && KZD.STAGES && KZD.STAGES[D.stage]) || '',
+        glow: T.glow && T.glow.c, seed: D.seed,
+        want: D.stage === 0 ? 'egg|' + D.seed + '|' + Math.round(heat * 10) : 'd|' + D.seed + '|' + D.stage
+      };
+      out._T = T; out._heat = heat;
+    } catch (e) {}
+    return out;
+  }
+
+  function snapshot() {
+    var T = todayIdx(), now = new Date();
+    var hs = [], i;
+    try { hs = habits.map(function (h) { return { id: h.id, name: String(h.name || ''), emoji: h.emoji || '', cat: h.category || '', week: (h.days || []).slice(0, 7).map(Boolean) }; }); } catch (e) {}
+    var n = hs.length, done = hs.filter(function (h) { return h.week[T]; }).length;
+    var weekPct = [];
+    for (i = 0; i < 7; i++) weekPct.push(n ? Math.round(hs.filter(function (h) { return h.week[i]; }).length / n * 100) : 0);
+    var weekDone = 0, weekGoal = 0;
+    try { habits.forEach(function (h) { weekDone += (h.days || []).filter(Boolean).length; weekGoal += Number(h.weeklyGoal) || 7; }); } catch (e) {}
+    var cur = { level: 1, title: 'Novato', icon: '', minXp: 0 }, nxt = null, xp = 0;
+    try {
+      xp = Number(appMeta.xp) || 0; cur = getCurrentRankObj();
+      nxt = RANKS.filter(function (r) { return r.level === cur.level + 1; })[0] || null;
+    } catch (e) {}
+    var todos = [];
+    try { todos = (window.__KZX && __KZX.todos() || []).map(function (t) { return String(t.text || ''); }); } catch (e) {}
+    var metas = [];
+    try { metas = goals.filter(function (g) { return !g.completed && Number(g.progress) < 100; }).slice(0, 5).map(function (g) { return { title: String(g.title || ''), pct: Math.round(Number(g.progress) || 0), horizon: g.horizon || '' }; }); } catch (e) {}
+    var sav = null;
+    if (cfg.showSavings) {
+      try {
+        var S = window.__KZX && __KZX.savings();
+        if (S && S.goals) {
+          sav = { currency: S.currency || '$', goals: S.goals.filter(function (g) { return !g.archived; }).slice(0, 6).map(function (g) {
+            var t = Number(g.target) || 0, s = Number(g.saved) || 0;
+            return { name: String(g.name || ''), saved: s, target: t, pct: t > 0 ? Math.min(100, Math.round(s / t * 100)) : 0, done: !!g.achievedAt };
+          }) };
+        }
+      } catch (e) {}
+    }
+    var dr = dragonInfo(done, n), last = lastActive();
+    var accent = ACCENTS[document.documentElement.getAttribute('data-accent') || 'crimson'] || ACCENTS.crimson;
+    var snap = {
+      v: 1, date: iso(now), dayIdx: T, generatedAt: now.toISOString(), appUrl: location.origin + location.pathname, accent: accent,
+      habits: hs,
+      stats: { done: done, total: n, streak: overallStreak(T), shields: Number(appMeta.shields) || 0, weekDone: weekDone, weekGoal: weekGoal },
+      weekPct: weekPct, lastActive: last,
+      level: {
+        n: cur.level, title: cur.title, icon: cur.icon || '', xp: xp, minXp: cur.minXp, nextXp: nxt ? nxt.minXp : null, nextTitle: nxt ? nxt.title : '',
+        pct: nxt ? Math.max(0, Math.min(100, Math.round((xp - cur.minXp) / (nxt.minXp - cur.minXp) * 100))) : 100
+      },
+      todos: { count: todos.length, items: todos.slice(0, 10) },
+      metas: metas, savings: sav,
+      dragon: dr.has ? { has: true, name: dr.name, stage: dr.stage, stageName: dr.stageName, glow: dr.glow, key: cfg.imgKey && cfg.imgFor === dr.want ? cfg.imgKey : null, moods: cfg.imgFor === dr.want ? (cfg.imgMoods || []) : [] } : { has: false }
+    };
+    snap._want = dr.has ? dr.want : null;
+    snap._dr = dr;
+    return snap;
+  }
+  function clean(snap) { var o = {}; for (var k in snap) if (k.charAt(0) !== '_') o[k] = snap[k]; return o; }
+  function hashOf(snap) { var o = clean(snap); delete o.generatedAt; var s = JSON.stringify(o), h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h + ':' + s.length; }
+
+  // ================================================================ imagen del dragón (PNG por estado de ánimo)
+  function swapFace(svg, faceMarkup) {
+    var open = '<g class="kzd-face">', a = svg.indexOf(open);
+    if (a < 0) return svg;
+    var depth = 1, i = a + open.length, re = /<g[\s>]|<\/g>/g, m;
+    re.lastIndex = i;
+    while ((m = re.exec(svg))) {
+      if (m[0] === '</g>') { depth--; if (depth === 0) return svg.slice(0, i) + faceMarkup + svg.slice(m.index); }
+      else depth++;
+    }
+    return svg;
+  }
+  function eggSVG(T, heat) {
+    var e0 = T.shell.egg[0], e1 = T.shell.egg[1], g = T.glow.c, h = Math.max(0, Math.min(1, heat));
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 300 300"><defs>' +
+      '<radialGradient id="a" cx=".36" cy=".3" r=".95"><stop offset="0" stop-color="' + e1 + '"/><stop offset="1" stop-color="' + e0 + '"/></radialGradient>' +
+      '<radialGradient id="b"><stop offset="0" stop-color="' + g + '" stop-opacity="' + (0.18 + 0.4 * h).toFixed(2) + '"/><stop offset="1" stop-color="' + g + '" stop-opacity="0"/></radialGradient></defs>' +
+      '<circle cx="150" cy="168" r="140" fill="url(#b)"/>' +
+      '<ellipse cx="150" cy="276" rx="68" ry="9" fill="#000" opacity=".18"/>' +
+      '<path d="M150 34C205 34 238 126 238 188C238 244 200 272 150 272C100 272 62 244 62 188C62 126 95 34 150 34Z" fill="url(#a)"/>' +
+      '<path d="M150 34C205 34 238 126 238 188C238 244 200 272 150 272C100 272 62 244 62 188C62 126 95 34 150 34Z" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="3"/>' +
+      '<path d="M146 74L132 112L156 136L136 170L160 198L146 238" fill="none" stroke="' + g + '" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="' + (0.25 + 0.75 * h).toFixed(2) + '"/>' +
+      '<ellipse cx="112" cy="100" rx="16" ry="34" fill="#fff" opacity=".22" transform="rotate(-18 112 100)"/></svg>';
+  }
+  function toPNG(svg, crop) {
+    // Se dibuja a 720 px y se recorta al contorno del dragón (con 6 % de margen) para que llene el widget; salida 360 px.
+    return new Promise(function (res, rej) {
+      var img = new Image();
+      img.onload = function () {
+        try {
+          var N = 720, c = document.createElement('canvas'); c.width = c.height = N;
+          var x = c.getContext('2d'); x.drawImage(img, 0, 0, N, N);
+          var out = document.createElement('canvas'); out.width = out.height = 360; var ox = out.getContext('2d');
+          if (crop) {
+            var d = x.getImageData(0, 0, N, N).data, x0 = N, y0 = N, x1 = 0, y1 = 0, i, j;
+            for (j = 0; j < N; j++) for (i = 0; i < N; i++) if (d[(j * N + i) * 4 + 3] > 10) { if (i < x0) x0 = i; if (i > x1) x1 = i; if (j < y0) y0 = j; if (j > y1) y1 = j; }
+            if (x1 > x0 && y1 > y0) {
+              var side = Math.max(x1 - x0, y1 - y0) * 1.06, cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+              ox.drawImage(c, cx - side / 2, cy - side / 2, side, side, 0, 0, 360, 360);
+            } else ox.drawImage(c, 0, 0, 360, 360);
+          } else ox.drawImage(c, 0, 0, 360, 360);
+          res(out.toDataURL('image/png').split(',')[1]);
+        } catch (e) { rej(e); }
+      };
+      img.onerror = function () { rej(new Error('No se pudo dibujar el dragón')); };
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    });
+  }
+  function dragonImages(dr) {
+    // devuelve [{ name: 'dragon-proud.png', b64 }...]
+    var T = dr._T, out = [];
+    if (dr.stage === 0) return toPNG(eggSVG(T, dr._heat), true).then(function (b) { return [{ name: 'dragon-idle.png', mood: 'idle', b64: b }]; });
+    var B = KZDArt.build(dr.stage, T, 'kzs' + (Date.now() % 100000), {});
+    var base = B.svg.replace('<svg class="kzd-dragon', '<svg width="720" height="720" class="kzd-dragon');
+    var chain = Promise.resolve();
+    MOODS.forEach(function (m) {
+      chain = chain.then(function () {
+        var expr = m === 'sleep' ? 'sleep' : m;
+        return toPNG(swapFace(base, B.face(expr)), true).then(function (b) { out.push({ name: 'dragon-' + m + '.png', mood: m, b64: b }); });
+      });
+    });
+    return chain.then(function () { return out; });
+  }
+
+  // ================================================================ GitHub (Contents API)
+  var busy = false, again = false, paused = false, failN = 0, timer = 0, retryAt = 0, lastSeen = '';
+  function enc(p) { return p.split('/').map(encodeURIComponent).join('/'); }
+  function gh(method, path, body, keepalive) {
+    var url = 'https://api.github.com' + path;
+    return fetch(url, {
+      method: method, keepalive: !!keepalive, cache: 'no-store',
+      headers: Object.assign({ Authorization: 'Bearer ' + cfg.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }, body ? { 'Content-Type': 'application/json' } : {}),
+      body: body ? JSON.stringify(body) : undefined
+    }).then(function (r) {
+      return r.text().then(function (t) {
+        var j = null; try { j = t ? JSON.parse(t) : null; } catch (e) {}
+        if (!r.ok) { var err = new Error((j && j.message) || ('HTTP ' + r.status)); err.status = r.status; throw err; }
+        return j;
+      });
+    });
+  }
+  function cUrl(p, get) { return '/repos/' + encodeURIComponent(cfg.owner) + '/' + encodeURIComponent(cfg.repo) + '/contents/' + enc(p) + (get && cfg.branch ? '?ref=' + encodeURIComponent(cfg.branch) : ''); }
+  function getSha(p) {
+    return gh('GET', cUrl(p, true)).then(function (j) { return j && j.sha; }, function (e) { if (e.status === 404) return null; throw e; });
+  }
+  function put(p, b64, msg, keepalive) {
+    cfg.shas = cfg.shas || {};
+    function go(sha) {
+      var body = { message: msg, content: b64 }; if (sha) body.sha = sha; if (cfg.branch) body.branch = cfg.branch;
+      return gh('PUT', cUrl(p), body, keepalive).then(function (j) { cfg.shas[p] = j && j.content && j.content.sha; store(); });
+    }
+    var sha = cfg.shas[p];
+    var first = sha ? Promise.resolve(sha) : (keepalive ? Promise.resolve(null) : getSha(p));
+    return first.then(go).catch(function (e) {
+      if ((e.status === 409 || e.status === 422) && !keepalive) { return getSha(p).then(go); }
+      throw e;
+    });
+  }
+  function utf8b64(s) { var b = new TextEncoder().encode(s), bin = ''; for (var i = 0; i < b.length; i += 0x8000) bin += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(bin); }
+
+  // ================================================================ estado visible
+  function ago(ts) {
+    if (!ts) return '';
+    var s = Math.max(0, Math.round((Date.now() - ts) / 1000));
+    if (s < 45) return 'hace unos segundos';
+    var m = Math.round(s / 60); if (m < 60) return 'hace ' + m + ' min';
+    var h = Math.round(m / 60); if (h < 24) return 'hace ' + h + ' h';
+    return 'hace ' + Math.round(h / 24) + ' d';
+  }
+  var uiState = 'idle';
+  function paint() {
+    var dot = $('kzs-dot'), txt = $('kzs-status-txt'); if (!dot || !txt) return;
+    var cls = 'kzs-dot', msg;
+    if (!ready()) { msg = 'Sin conectar'; }
+    else if (uiState === 'syncing') { cls += ' is-sync'; msg = 'Sincronizando…'; }
+    else if (cfg.lastErr) { cls += ' is-err'; msg = cfg.lastErr + (cfg.lastOk ? ' · última vez ' + ago(cfg.lastOk) : ''); }
+    else if (cfg.lastOk) { cls += ' is-ok'; msg = 'Conectado · sincronizado ' + ago(cfg.lastOk); }
+    else { cls += ' is-ok'; msg = 'Conectado'; }
+    dot.className = cls; txt.textContent = msg;
+    var f = $('kzs-form'), c = $('kzs-connected');
+    if (f) f.hidden = ready();
+    if (c) c.hidden = !ready();
+    var sv = $('kzs-savings'); if (sv) sv.checked = !!cfg.showSavings;
+  }
+  function explain(e) {
+    if (!e) return 'Error desconocido';
+    if (e.status === 401) return 'El token no es válido o venció';
+    if (e.status === 403) return 'El token no tiene permiso (necesita Contents: lectura y escritura) o hay límite de uso';
+    if (e.status === 404) return 'No encuentro el repositorio o el token no tiene acceso a él';
+    if (e.status === 409 || e.status === 422) return 'Conflicto al guardar; reintentaré';
+    if (e instanceof TypeError || /fetch|network/i.test(e.message || '')) return 'Sin conexión; reintentaré';
+    return e.message || 'Error';
+  }
+
+  // ================================================================ sincronización
+  function sync(opts) {
+    opts = opts || {};
+    if (!ready()) return Promise.resolve(false);
+    if (busy) { again = true; return Promise.resolve(false); }
+    if (paused && !opts.force) return Promise.resolve(false);
+    busy = true; uiState = 'syncing'; paint();
+    var snap = snapshot(), want = snap._want, dr = snap._dr;
+    var step = Promise.resolve();
+    if (want && cfg.imgFor !== want) {
+      step = dragonImages(dr).then(function (imgs) {
+        var chain = Promise.resolve();
+        imgs.forEach(function (im) { chain = chain.then(function () { return put('kaizensn/' + im.name, im.b64, 'kaizensn: imagen del dragón'); }); });
+        return chain.then(function () { cfg.imgFor = want; cfg.imgKey = String(Date.now()); cfg.imgMoods = imgs.map(function (i) { return i.mood; }); store(); });
+      });
+    }
+    return step.then(function () {
+      snap = snapshot();
+      var h = hashOf(snap);
+      if (!opts.force && h === cfg.lastHash) return 'same';
+      var json = JSON.stringify(clean(snap));
+      return put(SNAP_PATH, utf8b64(json), 'kaizensn: sync', opts.keepalive).then(function () { cfg.lastHash = h; return 'sent'; });
+    }).then(function () {
+      cfg.lastOk = Date.now(); cfg.lastErr = ''; failN = 0; paused = false; store();
+      return true;
+    }).catch(function (e) {
+      failN++; cfg.lastErr = explain(e); store();
+      if (e && (e.status === 401 || e.status === 403 || e.status === 404)) paused = true;
+      else retryAt = Date.now() + Math.min(300000, 15000 * Math.pow(2, failN - 1));
+      return false;
+    }).then(function (ok) {
+      busy = false; uiState = 'idle'; paint();
+      if (again) { again = false; schedule(1500); }
+      return ok;
+    });
+  }
+  function schedule(ms) { clearTimeout(timer); timer = setTimeout(function () { sync(); }, ms); }
+
+  function tick() {
+    if (!ready() || document.hidden || paused || busy) return;
+    if (retryAt && Date.now() < retryAt) return;
+    var h = hashOf(snapshot());
+    var want = (dragonInfo(0, 0) || {}).want;
+    var token = h + '|' + (want || '');
+    if (token !== lastSeen) { lastSeen = token; if (h !== cfg.lastHash || (want && cfg.imgFor !== want)) schedule(7000); }
+    var el = $('kzs-status-txt'); if (el && $('settingsModal') && !$('settingsModal').classList.contains('hidden')) paint();
+  }
+  function flush() {
+    if (!ready() || paused || busy) return;
+    var snap = snapshot(), h = hashOf(snap);
+    if (h === cfg.lastHash || !(cfg.shas && cfg.shas[SNAP_PATH])) return;
+    try { sync({ keepalive: true }); } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', function () { if (document.hidden) flush(); else { lastSeen = ''; } });
+  window.addEventListener('pagehide', flush);
+  setInterval(tick, 3000);
+
+  // ================================================================ conexión
+  function validate(owner, repo, token) {
+    if (!/^[A-Za-z0-9-]{1,39}$/.test(owner)) return 'Escribe tu usuario de GitHub (solo letras, números y guiones).';
+    if (!/^[A-Za-z0-9._-]{1,100}$/.test(repo)) return 'Escribe el nombre del repositorio (sin espacios).';
+    if (!token || /\s/.test(token) || token.length < 20) return 'Pega el token completo que te dio GitHub.';
+    return '';
+  }
+  function connect(owner, repo, token) {
+    var old = { owner: cfg.owner, repo: cfg.repo, token: cfg.token };
+    cfg.owner = owner; cfg.repo = repo; cfg.token = token;
+    return gh('GET', '/repos/' + encodeURIComponent(owner) + '/' + encodeURIComponent(repo)).then(function (r) {
+      if (!r.private) throw Object.assign(new Error('Ese repositorio es PÚBLICO: cualquiera vería tus datos. Crea uno privado.'), { status: 0 });
+      if (r.permissions && r.permissions.push === false) throw Object.assign(new Error('El token no puede escribir. Dale el permiso Contents: Read and write.'), { status: 0 });
+      cfg.branch = ''; cfg.shas = {}; cfg.lastHash = ''; cfg.imgFor = ''; cfg.lastErr = ''; paused = false; failN = 0; retryAt = 0; store();
+      return true;
+    }).catch(function (e) { cfg.owner = old.owner; cfg.repo = old.repo; cfg.token = old.token; throw e; });
+  }
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(function () { return true; }, fallback);
+    return Promise.resolve(fallback());
+    function fallback() {
+      try { var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length); var ok = document.execCommand('copy'); ta.remove(); return ok; } catch (e) { return false; }
+    }
+  }
+  function note(msg, bad) {
+    var el = $('kzs-note'); if (!el) return;
+    el.textContent = msg; el.className = 'kzs-note' + (bad ? ' is-bad' : ' is-ok');
+    clearTimeout(note.t); note.t = setTimeout(function () { el.textContent = ''; el.className = 'kzs-note'; }, 4500);
+  }
+
+  // ================================================================ interfaz (dentro de Ajustes, sin tocar el HTML original)
+  function build() {
+    var modal = $('settingsModal'); if (!modal || $('kzs-box')) return;
+    var host = modal.querySelector('.space-y-6'); if (!host) return;
+    var box = document.createElement('div');
+    box.id = 'kzs-box'; box.className = 'kzs pt-4 border-t border-slate-100 dark:border-slate-800';
+    box.innerHTML =
+      '<h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Widgets de la pantalla de inicio</h4>' +
+      '<p class="kzs-p">Sube un resumen de tu día a un repositorio <b>privado</b> tuyo de GitHub y míralo en widgets de iPhone con la app gratuita Scriptable.</p>' +
+      '<div class="kzs-status" role="status"><i class="kzs-dot" id="kzs-dot"></i><span id="kzs-status-txt">Sin conectar</span></div>' +
+      '<form id="kzs-form" class="kzs-form" novalidate autocomplete="off">' +
+      '<label class="kzs-lbl" for="kzs-owner">Usuario de GitHub</label><input id="kzs-owner" class="kzs-in" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="tu-usuario">' +
+      '<label class="kzs-lbl" for="kzs-repo">Repositorio privado</label><input id="kzs-repo" class="kzs-in" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" value="kaizensn-sync">' +
+      '<label class="kzs-lbl" for="kzs-token">Token (Contents: lectura y escritura)</label><input id="kzs-token" class="kzs-in" type="password" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="github_pat_…">' +
+      '<p class="kzs-err" id="kzs-err" role="alert"></p>' +
+      '<button type="submit" class="kzs-btn kzs-primary" id="kzs-go">Conectar y sincronizar</button></form>' +
+      '<div id="kzs-connected" hidden>' +
+      '<label class="kzs-check"><input type="checkbox" id="kzs-savings"><span>Mostrar mis ahorros en los widgets</span></label>' +
+      '<div class="kzs-row"><button type="button" class="kzs-btn kzs-primary" id="kzs-now">Sincronizar ahora</button>' +
+      '<button type="button" class="kzs-btn kzs-soft" id="kzs-copycfg">Copiar configuración</button>' +
+      '<button type="button" class="kzs-btn kzs-soft" id="kzs-copyscript">Copiar script de Scriptable</button></div>' +
+      '<button type="button" class="kzs-link" id="kzs-off">Desconectar este dispositivo</button></div>' +
+      '<p class="kzs-note" id="kzs-note" role="status" aria-live="polite"></p>' +
+      '<details class="kzs-help"><summary>¿Cómo lo configuro paso a paso?</summary><ol>' +
+      '<li>En GitHub crea un repositorio <b>privado</b> (por ejemplo <code>kaizensn-sync</code>).</li>' +
+      '<li>GitHub → Settings → Developer settings → Fine-grained tokens → <i>Generate new token</i>. En <i>Repository access</i> elige solo ese repositorio y en <i>Permissions → Contents</i> marca <b>Read and write</b>. Copia el token.</li>' +
+      '<li>Pega aquí tu usuario, el repositorio y el token, y toca <b>Conectar y sincronizar</b>.</li>' +
+      '<li>Toca <b>Copiar script de Scriptable</b>. En Scriptable pulsa “+”, pega y ponle de nombre <code>KAIZENsn</code>.</li>' +
+      '<li>Vuelve aquí, toca <b>Copiar configuración</b>, abre el script <code>KAIZENsn</code> en Scriptable y lo leerá solo.</li>' +
+      '<li>En la pantalla de inicio: mantén pulsado → “+” → Scriptable → elige tamaño → Editar widget → Script: <code>KAIZENsn</code>.</li>' +
+      '</ol></details>';
+    host.insertBefore(box, host.lastElementChild);
+
+    $('kzs-owner').value = cfg.owner || ''; if (cfg.repo) $('kzs-repo').value = cfg.repo;
+    $('kzs-form').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var o = $('kzs-owner').value.trim(), r = $('kzs-repo').value.trim(), t = $('kzs-token').value.trim(), err = $('kzs-err');
+      var bad = validate(o, r, t); err.textContent = bad; if (bad) return;
+      var btn = $('kzs-go'); btn.disabled = true; btn.textContent = 'Comprobando…';
+      connect(o, r, t).then(function () { $('kzs-token').value = ''; paint(); return sync({ force: true }); }).then(function (ok) {
+        if (ok) note('¡Conectado! Ya puedes añadir el widget.'); else if (cfg.lastErr) err.textContent = cfg.lastErr;
+      }).catch(function (e) { err.textContent = e.status === 0 ? e.message : explain(e); })
+        .then(function () { btn.disabled = false; btn.textContent = 'Conectar y sincronizar'; paint(); });
+    });
+    $('kzs-now').addEventListener('click', function () { var b = this; b.disabled = true; paused = false; sync({ force: true }).then(function (ok) { b.disabled = false; note(ok ? 'Listo, sincronizado.' : (cfg.lastErr || 'No se pudo sincronizar.'), !ok); }); });
+    $('kzs-savings').addEventListener('change', function () { cfg.showSavings = this.checked; store(); sync(); });
+    $('kzs-copycfg').addEventListener('click', function () {
+      var payload = 'KZS1.' + btoa(JSON.stringify({ o: cfg.owner, r: cfg.repo, t: cfg.token, b: cfg.branch || '' }));
+      copyText(payload).then(function (ok) { note(ok ? 'Configuración copiada. Ábrela en Scriptable.' : 'No pude copiar. Prueba de nuevo.', !ok); });
+    });
+    $('kzs-copyscript').addEventListener('click', function () {
+      copyText(WIDGET_SCRIPT).then(function (ok) { note(ok ? 'Script copiado. Pégalo en un script nuevo de Scriptable.' : 'No pude copiar. Prueba de nuevo.', !ok); });
+    });
+    $('kzs-off').addEventListener('click', function () {
+      cfg = { showSavings: cfg.showSavings }; store(); paused = false; lastSeen = ''; paint();
+      note('Desconectado. Los archivos del repositorio no se borran; puedes borrarlos desde GitHub.');
+    });
+    paint();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+  var _open = window.openSettingsModal;
+  if (typeof _open === 'function' && !_open.__kzs) {
+    window.openSettingsModal = function () { var r = _open.apply(this, arguments); try { build(); paint(); } catch (e) {} return r; };
+    window.openSettingsModal.__kzs = true;
+  }
+
+  window.__KZS = {
+    snapshot: function () { return clean(snapshot()); },
+    cfg: function () { var c = Object.assign({}, cfg); c.token = c.token ? '***' : ''; return c; },
+    sync: sync, hash: function () { return hashOf(snapshot()); }, script: function () { return WIDGET_SCRIPT; }
+  };
 })();
 
     </script>
